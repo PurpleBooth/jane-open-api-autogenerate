@@ -1,0 +1,30 @@
+{
+  "name": "purplebooth/jane-open-api-autogenerate",
+  "type": "composer-installer",
+  "description": "This is a plugin for composer that allows you to generate a client from a given swagger definition",
+  "license": "MIT",
+  "keywords": ["composer", "composer-installer", "installer", "swagger", "jane", "open api"],
+  "authors": [
+    {
+      "name": "Billie Thompson",
+      "email": "billie@purplebooth.co.uk"
+    }
+  ],
+  "require": {
+    "composer-plugin-api": "^1.0",
+    "php": "^5.6 || ^7.0",
+    "jane/open-api": "^1.2"
+  },
+  "require-dev": {
+    "composer/composer": "^1.2",
+    "squizlabs/php_codesniffer": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "PurpleBooth\\JaneOpenApiAutogenerate\\": "src/"
+    }
+  },
+  "extra": {
+    "class": "\\PurpleBooth\\JaneOpenApiAutogenerate\\SwaggerApiInstaller"
+  }
+}
