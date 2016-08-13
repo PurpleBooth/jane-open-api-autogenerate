@@ -9,7 +9,7 @@ cp -r test "$TEST_DIR"
 
 cat > "$TEST_DIR/composer.json" << COMPOSER
 {
-  "name": "billie/jane-openapi-autogenerate-test-$TRAVIS_BRANCH-$TRAVIS_COMMIT",
+  "name": "billie/jane-openapi-autogenerate-test",
   "authors": [
     {
       "name": "Billie Thompson",
