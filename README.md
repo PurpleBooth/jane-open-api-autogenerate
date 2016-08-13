@@ -19,7 +19,7 @@ You'll need to install:
 
 ## Usage
 
-You have a few options, you could add in the repository you keep your
+You have a few options, you could add to the repository you keep your
 swagger definition define a composer.json that looks something like
 this.
 
@@ -28,16 +28,16 @@ this.
     "name": "swagger/petstore",
     "type": "swagger-api",
     "extra": {
-        "namespace": "Swagger\\Petstore\\",
+        "namespace": "Swagger\\Petstore",
         "schema-file": "http://petstore.swagger.io/v2/swagger.json"
     },
-    "require": {
-        "purplebooth/jane-open-api-autogenerate": "*@dev"
-    },
     "autoload": {
-        "psr-0": {
-            "Swagger\\Petstore\\": ".",
+        "psr-4": {
+            "Swagger\\Petstore\\": "generated/"
         }
+    },
+    "require": {
+        "purplebooth/jane-open-api-autogenerate": ""
     }
 }
 ```
@@ -51,32 +51,32 @@ $ composer require swagger/petstore
 alternatively you could add the package manually in the composer.json
 
 ```json
-
 {
     "require": {
-        "swagger/petstore": "0.1.0"
+        "swagger/petstore": "0.1.0",
+        "purplebooth/jane-open-api-autogenerate": ""
     },
     "repositories": [{
         "type": "package",
         "package": {
-            "name": "swagger/petstore",
+            "autoload": {
+                "psr-4": {
+                    "Swagger\\Petstore\\": "generated/"
+                }
+            },
             "type": "swagger-api",
+            "name": "swagger/petstore",
+            "version": "0.1.0",
             "extra": {
-                "namespace": "Swagger\\Petstore\\",
+                "namespace": "Swagger\\Petstore",
                 "schema-file": "http://petstore.swagger.io/v2/swagger.json"
             },
             "require": {
-                "purplebooth/jane-open-api-autogenerate": "*@dev"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Swagger\\Petstore\\": "."
-                }
+                "purplebooth/jane-open-api-autogenerate": ""
             }
         }
-    }]
+    }
 }
-
 ```
 
 Another feature of this library is the ability to override the swagger
