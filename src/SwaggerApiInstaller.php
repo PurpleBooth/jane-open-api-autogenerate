@@ -22,6 +22,7 @@ class SwaggerApiInstaller extends LibraryInstaller
     const EXTRA_KEY_SCHEMA_FILE = 'schema-file';
 
     const EXTRA_KEY_ENVIRONMENT_VARIABLE = 'environment-variable';
+    const GENERATED_DIRECTORY            = "generated";
 
     /**
      * {@inheritdoc}
@@ -90,7 +91,7 @@ class SwaggerApiInstaller extends LibraryInstaller
     protected function installCode(PackageInterface $package)
     {
         $downloadPath = $this->getInstallPath($package);
-        $this->generateSwaggerClient($package, $downloadPath);
+        $this->generateSwaggerClient($package, $downloadPath . DIRECTORY_SEPARATOR . self::GENERATED_DIRECTORY);
     }
 
     /**
@@ -116,6 +117,11 @@ class SwaggerApiInstaller extends LibraryInstaller
             }
         }
 
+        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, [$downloadPath, $openApiSchemaFile]);
+
+        if (file_exists($vendorSchemaPath)) {
+            $openApiSchemaFile = $vendorSchemaPath;
+        }
 
         $this->io->write(
             "Generating <info>$namespace</info> from <info>$openApiSchemaFile</info>",
