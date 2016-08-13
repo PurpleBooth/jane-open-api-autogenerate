@@ -7,7 +7,13 @@
 [![License](https://poser.pugx.org/purplebooth/jane-open-api-autogenerate/license)](https://packagist.org/packages/purplebooth/jane-open-api-autogenerate)
 
 This project is designed to allow you to add an automatically generated
-swagger as a dependency via a composer dependency.
+[OpenAPI (swagger)][swagger] client as a dependency via a composer
+dependency.
+
+This project uses [jane/open-api].
+
+[jane/open-api]: https://github.com/jolicode/jane-openapi
+[swagger]: https://openapis.org/
 
 ## Getting Started
 
@@ -75,7 +81,7 @@ alternatively you could add the package manually in the composer.json
                 "purplebooth/jane-open-api-autogenerate": ""
             }
         }
-    }
+    }]
 }
 ```
 
