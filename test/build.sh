@@ -37,7 +37,7 @@ cat > "$TEST_DIR/composer.json" << COMPOSER
           "schema-file": "swagger.json"
         },
         "require": {
-          "purplebooth/jane-open-api-autogenerate": "dev-$TRAVIS_BRANCH#$TRAVIS_COMMIT"
+          "purplebooth/jane-open-api-autogenerate": "dev-#$TRAVIS_COMMIT"
         }
       }
     }
