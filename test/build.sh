@@ -3,9 +3,10 @@
 set -euo pipefail
 
 COMPOSER_FLAGS=${COMPOSER_FLAGS:-""}
+DIST_DIR="$TRAVIS_BUILD_DIR/test"
 TEST_DIR="$HOME/test"
 
-cp -r test "$TEST_DIR"
+cp -r $DIST_DIR "$TEST_DIR"
 
 cat > "$TEST_DIR/composer.json" << COMPOSER
 {
@@ -32,6 +33,10 @@ cat > "$TEST_DIR/composer.json" << COMPOSER
         "type": "swagger-api",
         "name": "swagger/petstore",
         "version": "0.1.0",
+        "dist" : {
+          "type": "path",
+          "url": "$DIST_DIR"
+        },
         "extra": {
           "namespace": "Swagger\\\\Petstore",
           "schema-file": "swagger.json"
