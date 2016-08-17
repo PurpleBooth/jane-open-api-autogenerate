@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.2] - 2016-08-17
+
+### Added
+
+- Added tests against many other platforms
+
+### Fixed
+
+- Fixed directory that the schema is loaded from when you require a
+  schema package
+
 ## [0.1.1] - 2016-08-13
 ### Added
 
