@@ -91,7 +91,10 @@ class SwaggerApiInstaller extends LibraryInstaller
     protected function installCode(PackageInterface $package)
     {
         $downloadPath = $this->getInstallPath($package);
-        $this->generateSwaggerClient($package, $downloadPath . DIRECTORY_SEPARATOR . self::GENERATED_DIRECTORY);
+        $this->generateSwaggerClient(
+            $package,
+            $downloadPath . DIRECTORY_SEPARATOR . self::GENERATED_DIRECTORY
+        );
     }
 
     /**
@@ -117,7 +120,7 @@ class SwaggerApiInstaller extends LibraryInstaller
             }
         }
 
-        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, [$downloadPath, $openApiSchemaFile]);
+        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, ['..', $downloadPath, $openApiSchemaFile]);
 
         if (file_exists($vendorSchemaPath)) {
             $openApiSchemaFile = $vendorSchemaPath;
