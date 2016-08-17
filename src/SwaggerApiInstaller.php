@@ -120,7 +120,7 @@ class SwaggerApiInstaller extends LibraryInstaller
             }
         }
 
-        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, ['..', $downloadPath, $openApiSchemaFile]);
+        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, [$downloadPath, '..', $openApiSchemaFile]);
 
         if (file_exists($vendorSchemaPath)) {
             $openApiSchemaFile = $vendorSchemaPath;
