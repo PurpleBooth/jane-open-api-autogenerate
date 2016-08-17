@@ -15,14 +15,12 @@ use SplFileInfo;
 
 class SwaggerApiInstaller extends LibraryInstaller
 {
-    const PACKAGE_TYPE = 'swagger-api';
-
-    const EXTRA_KEY_NAMESPACE = 'namespace';
-
-    const EXTRA_KEY_SCHEMA_FILE = 'schema-file';
-
-    const EXTRA_KEY_ENVIRONMENT_VARIABLE = 'environment-variable';
-    const GENERATED_DIRECTORY            = "generated";
+    const PACKAGE_TYPE                    = 'swagger-api';
+    const EXTRA_KEY_NAMESPACE             = 'namespace';
+    const EXTRA_KEY_SCHEMA_FILE           = 'schema-file';
+    const EXTRA_KEY_ENVIRONMENT_VARIABLE  = 'environment-variable';
+    const GENERATED_DIRECTORY             = "generated";
+    const SCHEMA_PATH_IS_DOWNLOAD_PATTERN = "/^https?:/";
 
     /**
      * {@inheritdoc}
@@ -52,11 +50,30 @@ class SwaggerApiInstaller extends LibraryInstaller
      */
     protected function removeCode(PackageInterface $package)
     {
-        $initialDownloadPath = $this->getInstallPath($package);
-        $this->removeDirectory($initialDownloadPath);
+        // Is this a schema we download from the internet or checkout locally
+        if (!$this->isSchemaToDownload($package)) {
+            parent::removeCode($package);
+        } else {
+            $downloadPath = $this->getInstallPath($package);
+            $this->removeDirectory($downloadPath);
+        }
     }
 
     /**
+     * Do we download or checkout this schema
+     *
+     * @param PackageInterface $package
+     *
+     * @return boolean
+     */
+    private function isSchemaToDownload(PackageInterface $package)
+    {
+        return preg_match(self::SCHEMA_PATH_IS_DOWNLOAD_PATTERN, $this->getInstallPath($package)) === 1;
+    }
+
+    /**
+     * RM -rf in PHP
+     *
      * @param string $downloadPath
      */
     private function removeDirectory($downloadPath)
@@ -65,9 +82,10 @@ class SwaggerApiInstaller extends LibraryInstaller
             return;
         }
 
+
         $directory = new RecursiveDirectoryIterator($downloadPath);
         $iterator  = new RecursiveIteratorIterator(
-            $directory,
+            -$directory,
             RecursiveIteratorIterator::CHILD_FIRST
         );
 
@@ -90,10 +108,14 @@ class SwaggerApiInstaller extends LibraryInstaller
      */
     protected function installCode(PackageInterface $package)
     {
-        $downloadPath = $this->getInstallPath($package);
+        // Is this a schema we download from the internet or checkout locally
+        if (!$this->isSchemaToDownload($package)) {
+            parent::installCode($package);
+        }
+
         $this->generateSwaggerClient(
             $package,
-            $downloadPath . DIRECTORY_SEPARATOR . self::GENERATED_DIRECTORY
+            $this->getInstallPath($package)
         );
     }
 
@@ -109,22 +131,7 @@ class SwaggerApiInstaller extends LibraryInstaller
 
         $extra             = $package->getExtra();
         $namespace         = $extra[ self::EXTRA_KEY_NAMESPACE ];
-        $openApiSchemaFile = $extra[ self::EXTRA_KEY_SCHEMA_FILE ];
-
-        if (isset($extra[ self::EXTRA_KEY_ENVIRONMENT_VARIABLE ])) {
-            $envVariableName = $extra[ self::EXTRA_KEY_ENVIRONMENT_VARIABLE ];
-            $envVariable     = getenv($envVariableName);
-
-            if ($envVariable) {
-                $openApiSchemaFile = $envVariable;
-            }
-        }
-
-        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, [$downloadPath, '..', $openApiSchemaFile]);
-
-        if (file_exists($vendorSchemaPath)) {
-            $openApiSchemaFile = $vendorSchemaPath;
-        }
+        $openApiSchemaFile = $this->getSchemaFile($package);
 
         $this->io->write(
             "Generating <info>$namespace</info> from <info>$openApiSchemaFile</info>",
@@ -138,7 +145,8 @@ class SwaggerApiInstaller extends LibraryInstaller
             IOInterface::VERY_VERBOSE
         );
 
-        $files = $janeOpenApi->generate($openApiSchemaFile, $namespace, $downloadPath);
+        $generatePath = implode(DIRECTORY_SEPARATOR, [$downloadPath, self::GENERATED_DIRECTORY]);
+        $files        = $janeOpenApi->generate($openApiSchemaFile, $namespace, $generatePath);
         $janeOpenApi->printFiles($files, $downloadPath);
 
         foreach ($files as $file) {
@@ -151,4 +159,38 @@ class SwaggerApiInstaller extends LibraryInstaller
             IOInterface::VERBOSE
         );
     }
+
+    /**
+     * Get the schema file
+     *
+     * @param PackageInterface $package
+     *
+     * @return string
+     */
+    private function getSchemaFile(PackageInterface $package)
+    {
+        $downloadPath      = $this->getInstallPath($package);
+        $extra             = $package->getExtra();
+        $openApiSchemaFile = $extra[ self::EXTRA_KEY_SCHEMA_FILE ];
+
+        if (isset($extra[ self::EXTRA_KEY_ENVIRONMENT_VARIABLE ])) {
+            $envVariableName = $extra[ self::EXTRA_KEY_ENVIRONMENT_VARIABLE ];
+            $envVariable     = getenv($envVariableName);
+
+            if ($envVariable) {
+                $openApiSchemaFile = $envVariable;
+            }
+        }
+
+        $vendorSchemaPath = implode(DIRECTORY_SEPARATOR, [$downloadPath, $openApiSchemaFile]);
+
+        if (file_exists($vendorSchemaPath)) {
+            $openApiSchemaFile = $vendorSchemaPath;
+
+            return $openApiSchemaFile;
+        }
+
+        return $openApiSchemaFile;
+    }
+
 }

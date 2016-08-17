@@ -35,7 +35,7 @@ this.
     "type": "swagger-api",
     "extra": {
         "namespace": "Swagger\\Petstore",
-        "schema-file": "http://petstore.swagger.io/v2/swagger.json"
+        "schema-file": "swagger.json"
     },
     "autoload": {
         "psr-4": {
@@ -43,7 +43,7 @@ this.
         }
     },
     "require": {
-        "purplebooth/jane-open-api-autogenerate": ""
+        "purplebooth/jane-open-api-autogenerate": "^0.1.4"
     }
 }
 ```
@@ -75,10 +75,47 @@ alternatively you could add the package manually in the composer.json
             "version": "0.1.0",
             "extra": {
                 "namespace": "Swagger\\Petstore",
-                "schema-file": "http://petstore.swagger.io/v2/swagger.json"
+                "schema-file": "/path/to/swagger.json"
             },
             "require": {
-                "purplebooth/jane-open-api-autogenerate": ""
+                "purplebooth/jane-open-api-autogenerate": "v0.1.4"
+            },
+            "dist" : {
+              "type": "path",
+              "url": "/path/to/swagger.json"
+            }
+        }
+    }]
+}
+```
+
+You do not need to provide a dist/source directory if we're not checking
+out your swagger.json from somewhere.
+
+
+```json
+{
+    "require": {
+        "swagger/petstore": "0.1.0",
+        "purplebooth/jane-open-api-autogenerate": ""
+    },
+    "repositories": [{
+        "type": "package",
+        "package": {
+            "autoload": {
+                "psr-4": {
+                    "Swagger\\Petstore\\": "generated/"
+                }
+            },
+            "type": "swagger-api",
+            "name": "swagger/petstore",
+            "version": "0.1.0",
+            "extra": {
+                "namespace": "Swagger\\Petstore",
+                "schema-file": "http://example/path/to/swagger.json"
+            },
+            "require": {
+                "purplebooth/jane-open-api-autogenerate": "v0.1.4"
             }
         }
     }]
@@ -93,7 +130,7 @@ environment variable.
 ```json
 "extra": {
     "namespace": "Swagger\\Petstore\\",
-    "schema-file": "http://petstore.swagger.io/v2/swagger.json",
+    "schema-file": "/path/to/swagger.json",
     "environment-variable": "PETS_SWAGGER_YAML"
 },
 ```
