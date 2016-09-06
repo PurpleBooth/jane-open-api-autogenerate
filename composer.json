@@ -13,6 +13,7 @@
   "require": {
     "composer-plugin-api": "^1.0",
     "jane/open-api": "^1.2.0",
+    "jane/openapi-runtime": "^1.0",
     "nikic/php-parser": "^2.1.0"
   },
   "require-dev": {
