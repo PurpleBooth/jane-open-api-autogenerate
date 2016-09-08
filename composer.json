@@ -18,7 +18,8 @@
   },
   "require-dev": {
     "composer/composer": "^1.2",
-    "squizlabs/php_codesniffer": "^2.6"
+    "squizlabs/php_codesniffer": "^2.6",
+    "sllh/php-cs-fixer-styleci-bridge": "^2.1"
   },
   "autoload": {
     "psr-4": {
