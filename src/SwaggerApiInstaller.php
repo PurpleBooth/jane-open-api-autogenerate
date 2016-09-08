@@ -192,5 +192,4 @@ class SwaggerApiInstaller extends LibraryInstaller
 
         return $openApiSchemaFile;
     }
-
 }
