@@ -1,7 +1,7 @@
 # Jane OpenAPI Autogenerate
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PurpleBooth/jane-open-api-autogenerate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PurpleBooth/jane-open-api-autogenerate/?branch=master)
-[![Build Status](https://travis-ci.org/PurpleBooth/jane-open-api-autogenerate.svg?branch=master)](https://travis-ci.org/PurpleBooth/jane-open-api-autogenerate)
+[![Build Status](https://scrutinizer-ci.com/g/PurpleBooth/jane-open-api-autogenerate/badges/build.png?b=master)](https://scrutinizer-ci.com/g/PurpleBooth/jane-open-api-autogenerate/build-status/master)
 [![Dependency Status](https://www.versioneye.com/user/projects/57ad0ad6cb5df20031a64a5c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57ad0ad6cb5df20031a64a5c)
 [![Latest Stable Version](https://poser.pugx.org/purplebooth/jane-open-api-autogenerate/v/stable)](https://packagist.org/packages/purplebooth/jane-open-api-autogenerate)
 [![License](https://poser.pugx.org/purplebooth/jane-open-api-autogenerate/license)](https://packagist.org/packages/purplebooth/jane-open-api-autogenerate)
