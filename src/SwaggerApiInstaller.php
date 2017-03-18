@@ -82,7 +82,6 @@ class SwaggerApiInstaller extends LibraryInstaller
             return;
         }
 
-
         $directory = new RecursiveDirectoryIterator($downloadPath);
         $iterator = new RecursiveIteratorIterator(
             -$directory,
