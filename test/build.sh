@@ -3,7 +3,7 @@
 set -euo pipefail
 
 COMPOSER_FLAGS=${COMPOSER_FLAGS:-""}
-DIST_DIR="$TRAVIS_BUILD_DIR/test"
+DIST_DIR="$(pwd)/test"
 TEST_DIR="$HOME/test"
 
 cp -r $DIST_DIR "$TEST_DIR"
@@ -48,12 +48,12 @@ cat > "$TEST_DIR/composer.json" << COMPOSER
     },
     {
       "type": "path",
-      "url": "$TRAVIS_BUILD_DIR"
+      "url": "$(pwd)"
     }
   ]
 }
 COMPOSER
 
-composer update -vvv $COMPOSER_FLAGS --working-dir="$TEST_DIR" --no-interaction --prefer-stable
+composer update -vvv $COMPOSER_FLAGS --working-dir="${TEST_DIR}" --no-interaction --prefer-stable
 
 exec php "$TEST_DIR/test.php"
