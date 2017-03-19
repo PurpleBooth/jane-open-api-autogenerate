@@ -130,13 +130,13 @@ class SwaggerApiInstaller extends LibraryInstaller
         $openApiSchemaFile = $this->getSchemaFile($package);
 
         $this->io->write(
-            "Generating <info>$namespace</info> from <info>$openApiSchemaFile</info>",
+            sprintf('Generating <info>%s</info> from <info>%s</info>', $namespace, $openApiSchemaFile),
             true,
             IOInterface::VERBOSE
         );
 
         $this->io->write(
-            "Writing to <info>$downloadPath</info>",
+            sprintf('Writing to <info>%s</info>', $downloadPath),
             true,
             IOInterface::VERY_VERBOSE
         );
@@ -146,11 +146,15 @@ class SwaggerApiInstaller extends LibraryInstaller
         $janeOpenApi->printFiles($files, $downloadPath);
 
         foreach ($files as $file) {
-            $this->io->write("Generated <info>{$file->getFilename()}</info>", true, IOInterface::DEBUG);
+            $this->io->write(
+                sprintf('Generated <info>%s</info>', $file->getFilename()),
+                true,
+                IOInterface::DEBUG
+            );
         }
 
         $this->io->write(
-            "Generated <info>$namespace</info> from <info>$openApiSchemaFile</info>",
+            sprintf('Generated <info>%s</info> from <info>%s</info>', $namespace, $openApiSchemaFile),
             true,
             IOInterface::VERBOSE
         );
