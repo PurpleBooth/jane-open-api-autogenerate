@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.1.6] - 2017-03-19
+
+### Fixed
+
+- Removed usage of depreciated `composer-installer`.
+
+### Changed
+
+- Moved from using travis to scrutinizer for the CI
+
 ## [0.1.5] - 2016-09-06
 
 ### Fixed
@@ -42,6 +53,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Everything, initial release
 
+[0.1.6]: https://github.com/PurpleBooth/jane-open-api-autogenerate/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/PurpleBooth/jane-open-api-autogenerate/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/PurpleBooth/jane-open-api-autogenerate/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/PurpleBooth/jane-open-api-autogenerate/compare/v0.1.2...v0.1.3
