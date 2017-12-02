@@ -68,7 +68,7 @@ class SwaggerApiInstaller extends LibraryInstaller
      */
     private function isSchemaToDownload(PackageInterface $package)
     {
-        return preg_match(self::SCHEMA_PATH_IS_DOWNLOAD_PATTERN, $this->getInstallPath($package)) === 1;
+        return 1 === preg_match(self::SCHEMA_PATH_IS_DOWNLOAD_PATTERN, $this->getInstallPath($package));
     }
 
     /**

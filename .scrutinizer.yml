@@ -259,6 +259,19 @@ build:
                     - find src -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
                     - composer validate
                     - test/build.sh
+        php-7.2:
+            environment:
+                php: 7.2
+                postgresql: false
+                redis: false
+            dependencies:
+                override:
+                    - composer update -n
+            tests:
+                override:
+                    - find src -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+                    - composer validate
+                    - test/build.sh
         php-hhvm:
             environment:
                 php: hhvm
