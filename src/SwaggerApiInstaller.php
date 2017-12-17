@@ -23,10 +23,15 @@ use SplFileInfo;
 class SwaggerApiInstaller extends LibraryInstaller
 {
     const PACKAGE_TYPE = 'swagger-api';
+
     const EXTRA_KEY_NAMESPACE = 'namespace';
+
     const EXTRA_KEY_SCHEMA_FILE = 'schema-file';
+
     const EXTRA_KEY_ENVIRONMENT_VARIABLE = 'environment-variable';
+
     const GENERATED_DIRECTORY = 'generated';
+
     const SCHEMA_PATH_IS_DOWNLOAD_PATTERN = '/^https?:/';
 
     /**
